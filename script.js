@@ -20,7 +20,7 @@
     this.reset();
 });
 
-const tableBody=document.querySelector("#studentTable tbody");
+const tableBody=document.querySelector("#studentTable tBody");
 function addStudentToTable(student){
     const row=document.createElement("tr");
     row.innerHTML=`
