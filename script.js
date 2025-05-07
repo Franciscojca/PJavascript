@@ -15,6 +15,7 @@
     const student={name,lastname,grade}
     students.push(student)
     console.log(students)
+    addStudentToTable(student)
 
     this.reset();
 });
@@ -23,9 +24,9 @@ const tableBody=document.querySelector("#studentTable tbody");
 function addStudentToTable(student){
     const row=document.createElement("tr");
     row.innerHTML=`
-    <tb>${student.name}</tb>
-    <tb>${student.lastname}</tb>
-    <tb>${student.grade}</tb>
+    <td>${student.name}</td>
+    <td>${student.lastname}</td>
+    <td>${student.grade}</td>
     `
 tableBody.appendChild(row)
 }
