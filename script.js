@@ -18,3 +18,14 @@
 
     this.reset();
 });
+
+const tableBody=document.querySelector("#studentTable tbody");
+function addStudentToTable(student){
+    const row=document.createElement("tr");
+    row.innerHTML=`
+    <tb>${student.name}</tb>
+    <tb>${student.lastname}</tb>
+    <tb>${student.grade}</tb>
+    `
+tableBody.appendChild(row)
+}
