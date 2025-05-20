@@ -1,46 +1,72 @@
-    const students=[];
+ const students = [];
 
-    document.getElementById("studentForm").addEventListener("submit",function (e){
-    e.preventDefault();
+const form = document.getElementById("studentForm");
+const nameInput = document.getElementById("name");
+const lastNameInput = document.getElementById("lastName");
+const gradeInput = document.getElementById("grade");
+const tableBody = document.querySelector("#studentTable tbody");
+const averageValue = document.getElementById("averageValue");
 
-    const name=document.getElementById("name").value.trim();
-    const lastname=document.getElementById("lastName").value.trim();
-    const grade=parseFloat(document.getElementById("grade").value);
+// Mensajes de validación en español
+nameInput.addEventListener("invalid", e => {
+  e.target.setCustomValidity("Por favor, complete el campo 'Nombre'.");
+});
+nameInput.addEventListener("input", e => e.target.setCustomValidity(""));
 
-    if(!name || !lastname || isNaN(grade) || (grade<1 || grade>7 )){
-        alert("Error al ingresar los datos")
-        return
-    }
+lastNameInput.addEventListener("invalid", e => {
+  e.target.setCustomValidity("Por favor, complete el campo 'Apellido'.");
+});
+lastNameInput.addEventListener("input", e => e.target.setCustomValidity(""));
 
-    const student={name,lastname,grade}
-    students.push(student)
-    console.log(students)
-    addStudentToTable(student)
-    calcularPromedio()
+gradeInput.addEventListener("invalid", e => {
+  e.target.setCustomValidity("Por favor, ingrese una nota entre 1.0 y 7.0.");
+});
+gradeInput.addEventListener("input", e => e.target.setCustomValidity(""));
 
-    this.reset();
+form.addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  // Validación HTML5
+  if (!form.checkValidity()) {
+    form.reportValidity();
+    return;
+  }
+
+  const name = nameInput.value.trim();
+  const lastname = lastNameInput.value.trim();
+  const grade = parseFloat(gradeInput.value);
+
+  // Ya cubierto por HTML5, pero queda de respaldo
+  if (!name || !lastname || isNaN(grade) || grade < 1 || grade > 7) {
+    alert("Error al ingresar los datos");
+    return;
+  }
+
+  const student = { name, lastname, grade };
+  students.push(student);
+
+  addStudentToTable(student);
+  calcularPromedio();
+
+  form.reset();
 });
 
-const tableBody=document.querySelector("#studentTable tBody");
-function addStudentToTable(student){
-    const row=document.createElement("tr");
-    row.innerHTML=`
+function addStudentToTable(student) {
+  const row = document.createElement("tr");
+  row.innerHTML = `
     <td>${student.name}</td>
     <td>${student.lastname}</td>
-    <td>${student.grade}</td>
-    `
-tableBody.appendChild(row)
+    <td>${student.grade.toFixed(1)}</td>
+  `;
+  tableBody.appendChild(row);
 }
 
-const Promedios= document.getElementById("average")
-
-function calcularPromedio(){
-    if (students.length==0){
-        Promedios.textContent="Promedio Generañ del curso :N/A"
-    return
-    }
-
-    const total=students.reduce((sum,student)=>sum+student.grade,0);
-    const prom=total/students.length;
-    Promedios.textContent="Promedio General del Curso :" +prom.toFixed(2);
+function calcularPromedio() {
+  if (students.length === 0) {
+    averageValue.textContent = "No Disponible";
+    return;
+  }
+  const total = students.reduce((sum, s) => sum + s.grade, 0);
+  const prom = total / students.length;
+  averageValue.textContent = prom.toFixed(2);
 }

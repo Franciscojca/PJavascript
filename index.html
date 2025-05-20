@@ -1,40 +1,52 @@
 <!DOCTYPE html>
-<html lang="es>
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Seguimiento de Calificaciones</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h2>Notas Asignatura Front-End</h2>
-    <div id="average">Promedio General del Curso: N/A</div>
-    <form id="studentForm">
-        <div>
-            <label for="name">Nombre:</label>
-            <input type="text"id="name"required>
-        </div>
-        <div>
-            <label for="lastName">Apellido:</label>
-            <input type="text"id="lastName">
-        </div>
-        <div>
-            <label for="grade">Nota:</label>
-            <input type="number" id="grade" slep="0.1" min="1" max="7">
-        </div>
-        <button type="submit">Guardar</button>
+  <div class="container">
+    <h2 class="title">Seguimiento de Calificaciones de Estudiantes</h2>
+
+    <!-- Promedio -->
+    <div id="average" class="average-box">
+      Promedio de Calificaciones: <span id="averageValue">No Disponible</span>
+    </div>
+
+    <!-- Formulario -->
+    <form id="studentForm" class="form-box" novalidate>
+      <div class="form-group">
+        <label for="name">Nombre:</label>
+        <input type="text" id="name" required>
+      </div>
+      <div class="form-group">
+        <label for="lastName">Apellido:</label>
+        <input type="text" id="lastName" required>
+      </div>
+      <div class="form-group">
+        <label for="grade">Calificación (1.0 - 7.0):</label>
+        <input type="number" id="grade" step="0.1" min="1" max="7" required>
+      </div>
+      <button type="submit" class="btn">Agregar Estudiante</button>
     </form>
-    <table id="studentTable" borde="1" cellpadding="8" cellspacing="0">
-        <thead>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th>Nota</th>
-        </thead>
-        <thead>
-            <tbody>
-                <!--Contenido de la tabla-->
-            </tbody>
-        </thead>
+
+    <!-- Tabla -->
+    <table id="studentTable">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Calificación</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Aquí se agregarán filas -->
+      </tbody>
     </table>
-    <script src="script.js"></script>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
