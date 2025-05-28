@@ -56,8 +56,14 @@ function addStudentToTable(student) {
   row.innerHTML = `
     <td>${student.name}</td>
     <td>${student.lastname}</td>
-    <td>${student.grade.toFixed(1)}</td>
+      <td>${student.grade.toFixed(1)}</td>
+      <td><button class="delete"> Eliminar</button></td>
   `;
+
+  row.querySelector(".delete").addEventListener("click", function(){
+    deleteEstudiante(student,row);
+    });
+
   tableBody.appendChild(row);
 }
 
@@ -69,4 +75,13 @@ function calcularPromedio() {
   const total = students.reduce((sum, s) => sum + s.grade, 0);
   const prom = total / students.length;
   averageValue.textContent = prom.toFixed(2);
+}
+
+function deleteEstudiante(student,row){
+  const index=students.indexOf(student);
+  if(index > -1){
+    students.splice(index, 1);
+    row.remove();
+    calcularPromedio();
+  }
 }
