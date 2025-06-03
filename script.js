@@ -54,15 +54,22 @@ form.addEventListener("submit", function (e) {
 function addStudentToTable(student) {
   const row = document.createElement("tr");
   row.innerHTML = `
-    <td>${student.name}</td>
-    <td>${student.lastname}</td>
-      <td>${student.grade.toFixed(1)}</td>
-      <td><button class="delete"> Eliminar</button></td>
-  `;
+  <td>${student.name}</td>
+  <td>${student.lastname}</td>
+  <td>${student.grade.toFixed(1)}</td>
+  <td>
+    <button class="edit">Editar</button>
+    <button class="delete">Eliminar</button>
+  </td>
+`;
 
-  row.querySelector(".delete").addEventListener("click", function(){
-    deleteEstudiante(student,row);
-    });
+  row.querySelector(".delete").addEventListener("click", function () {
+  deleteEstudiante(student, row);
+});
+
+  row.querySelector(".edit").addEventListener("click", function () {
+  editarEstudiante(student, row);
+});
 
   tableBody.appendChild(row);
 }
@@ -84,4 +91,21 @@ function deleteEstudiante(student,row){
     row.remove();
     calcularPromedio();
   }
+}
+
+function editarEstudiante(student, row) {
+  // Precargar los valores en el formulario
+  nameInput.value = student.name;
+  lastNameInput.value = student.lastname;
+  gradeInput.value = student.grade;
+
+  // Eliminar al estudiante actual de la lista y de la tabla
+  const index = students.indexOf(student);
+  if (index > -1) {
+    students.splice(index, 1);
+  }
+  row.remove();
+
+  // Actualizar el promedio
+  calcularPromedio();
 }
