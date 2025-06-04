@@ -1,4 +1,4 @@
- const students = [];
+const students = [];
 
 const form = document.getElementById("studentForm");
 const nameInput = document.getElementById("name");
@@ -6,6 +6,9 @@ const lastNameInput = document.getElementById("lastName");
 const gradeInput = document.getElementById("grade");
 const tableBody = document.querySelector("#studentTable tbody");
 const averageValue = document.getElementById("averageValue");
+const totalStudentsSpan = document.getElementById("totalStudents");
+const examStudentsSpan = document.getElementById("examStudents");
+const exemptStudentsSpan = document.getElementById("exemptStudents");
 
 // Mensajes de validación en español
 nameInput.addEventListener("invalid", e => {
@@ -109,3 +112,22 @@ function editarEstudiante(student, row) {
   // Actualizar el promedio
   calcularPromedio();
 }
+
+function actualizarEstadisticasExtra() {
+  const total = students.length;
+  const exam = students.filter(s => s.grade < 5.0).length;
+  const exempt = students.filter(s => s.grade > 5.0).length;
+
+  totalStudentsSpan.textContent = total;
+  examStudentsSpan.textContent = exam;
+  exemptStudentsSpan.textContent = exempt;
+}
+
+form.addEventListener("submit", () => {
+  setTimeout(actualizarEstadisticasExtra, 0); // esperar a que se procese el evento original
+});
+
+
+tableBody.addEventListener("click", () => {
+  setTimeout(actualizarEstadisticasExtra, 0); // esperar cambios
+});
